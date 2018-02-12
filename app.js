@@ -11,16 +11,26 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const exphbs = require('express-handlebars')
 const path = require('path')
+const favicon = require('serve-favicon')
+const {NotFoundError} = require('./helpers/custom-error')
 
 const app = express()
 const port = process.env.PORT || 8000
 
+// Configure rendering engine, with change extension to .hbs.
+app.engine('hbs', exphbs({
+  extname: '.hbs',
+  defaultLayout: 'main'
+}))
+
 // Setup view engine.
-app.engine('handlebars', exphbs({defaultLayout: 'main'}))
-app.set('view engine', 'handlebars')
+app.set('view engine', 'hbs')
 
 // Serve static files.
 app.use(express.static(path.join(__dirname, 'public')))
+
+// Serve a favicon from the given path.
+app.use(favicon(path.join(__dirname, 'public', 'img', 'favicon.ico')))
 
 // Parse only urlencoded bodies.
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -28,9 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Define routes.
 app.use('/product', require('./routes/productRoutes'))
 app.use((req, res, next) => { // catch 404 (ALWAYS keep this as the last route)
-  const error = new Error('Not Found')
-  error.status = 404
-  next(error)
+  next(new NotFoundError())
 })
 
 // Error handler.
@@ -55,6 +63,6 @@ app.use((err, req, res, next) => {
 
 // Start listening.
 app.listen(port, () => {
-  console.log(`Server started on http://localhost:${port}`)
-  console.log('Press Ctrl-C to terminate...')
+  console.log(`\nServer started on http://localhost:${port}`)
+  console.log('Press Ctrl-C to terminate...\n')
 })
