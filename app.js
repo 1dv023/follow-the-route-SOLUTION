@@ -1,36 +1,60 @@
-"use strict";
+/**
+ * The starting point of the application.
+ *
+ * @author Mats Loock
+ * @version 1.0.0
+ */
 
-const express       = require("express");
-const hbs           = require("express-handlebars");
-const bodyParser    = require("body-parser");
-const path          = require("path");
+'use strict'
 
-const app  = express();
-const port = process.env.PORT || 8000;
+const bodyParser = require('body-parser')
+const express = require('express')
+const exphbs = require('express-handlebars')
+const path = require('path')
 
-// View engine.
-app.engine("handlebars", hbs({defaultLayout: "main"}));
-app.set("view engine", "handlebars");
+const app = express()
+const port = process.env.PORT || 8000
 
-// parsing of json data
-app.use(bodyParser.json());
+// Setup view engine.
+app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
 
-// parsing of form data
-app.use(bodyParser.urlencoded({ extended: true }));
+// Serve static files.
+app.use(express.static(path.join(__dirname, 'public')))
 
-// Static files
-app.use(express.static(path.join(__dirname, "public")));
+// Parse only urlencoded bodies.
+app.use(bodyParser.urlencoded({ extended: true }))
 
-//Routes
-app.use("/", require("./routes/products.js"));
+// Define routes.
+app.use('/product', require('./routes/productRoutes'))
+app.use((req, res, next) => { // catch 404 (ALWAYS keep this as the last route)
+  const error = new Error('Not Found')
+  error.status = 404
+  next(error)
+})
 
-//Errors
-app.use((request, response) => response.status(404).render("404"));
+// Error handler.
+app.use((err, req, res, next) => {
+  // 404 Not Found.
+  if (err.status === 404) {
+    return res.status(404).sendFile(path.join(__dirname, 'views', 'error', '404.html'))
+  }
 
-app.use((err, req, res) => {
-    console.error(err.stack);
-    res.status(500).render("500");
-});
+  // 500 Internal Server Error (in production, all other errors send this response).
+  if (req.app.get('env') !== 'development') {
+    return res.status(500).sendFile(path.join(__dirname, 'views', 'error', '500.html'))
+  }
 
-// Start
-app.listen(port, () => console.log(`Express app listening on port ${port}!`));
+  // Development only!
+  // Set locals, only providing error in development.
+  res.locals.error = err
+
+  // Render the error page.
+  res.status(err.status || 500).render('error/error')
+})
+
+// Start listening.
+app.listen(port, () => {
+  console.log(`Server started on http://localhost:${port}`)
+  console.log('Press Ctrl-C to terminate...')
+})

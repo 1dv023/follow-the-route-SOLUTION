@@ -1,0 +1,19 @@
+<h1>Products</h1>
+
+<table class="table table-hover">
+  <caption>List of products</caption>
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each products}}
+    <tr>
+      <th scope="row">{{id}}</th>
+      <td><a href="/product/{{id}}">{{name}}</a></td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
