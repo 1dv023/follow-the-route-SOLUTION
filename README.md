@@ -1,12 +1,12 @@
 # Follow the route
 
-In this excercise, you should train your ability to create routes in the Node.js web application framework [Express](https://expressjs.com/) and render some simple views.
+In this exercise, you should train your ability to create routes in the Node.js web application framework [Express](https://expressjs.com/) and render some simple views.
 
 ## The assignment
 
 You should set up a web application that follow this rules:
 
-1. The web application should listen to port 8000.
+1. The web application should listen to port 3000.
 
 2. When the client asks for the root URL a static html file (index.html) should be responded to the client.
 
