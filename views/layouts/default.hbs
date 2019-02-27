@@ -13,38 +13,12 @@
     <title>Follow the route</title>
   </head>
   <body>
-    <header>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Follow the route</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-          aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/product/">Products</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/product/create">Add product</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+    {{>header}}
     <main role="main" class="container">
-      <h1>
-        This is...</h1>
-      <p>...the static start page.</p>
+      {{{body}}}
     </main>
-    <footer class="footer">
-      <div class="container">
-        <span class="text-muted">Code licensed <a href="https://opensource.org/licenses/MIT" target="_blank" rel="license noopener">MIT</a>, exercise <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener">Creative Commons Attribution 4.0 International License</a>.</p></span>
-      </div>
-    </footer>
+    {{>footer}}
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -2,41 +2,45 @@
  * The starting point of the application.
  *
  * @author Mats Loock
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 'use strict'
 
-const bodyParser = require('body-parser')
+const createError = require('http-errors')
 const express = require('express')
-const exphbs = require('express-handlebars')
+const hbs = require('express-hbs')
 const path = require('path')
 
 const app = express()
-const port = process.env.PORT || 8000
 
 // Setup view engine.
-app.engine('handlebars', exphbs({defaultLayout: 'main'}))
-app.set('view engine', 'handlebars')
+app.engine('hbs', hbs.express4({
+  defaultLayout: path.join(__dirname, 'views', 'layouts', 'default'),
+  partialsDir: path.join(__dirname, 'views', 'partials')
+}))
+app.set('view engine', 'hbs')
+app.set('views', path.join(__dirname, 'views'))
 
 // Serve static files.
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Parse only urlencoded bodies.
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
 
 // Define routes.
-app.use('/product', require('./routes/productRoutes'))
-app.use((req, res, next) => { // catch 404 (ALWAYS keep this as the last route)
-  const error = new Error('Not Found')
-  error.status = 404
-  next(error)
-})
+app.use('/product', require('./routes/productRouter'))
+app.use('*', (req, res, next) => next(createError(404))) // catch 404 (ALWAYS keep this as the last route)
 
 // Error handler.
 app.use((err, req, res, next) => {
+  // 403 Forbidden.
+  if (err.statusCode === 403) {
+    return res.status(403).sendFile(path.join(__dirname, 'views', 'error', '403.html'))
+  }
+
   // 404 Not Found.
-  if (err.status === 404) {
+  if (err.statusCode === 404) {
     return res.status(404).sendFile(path.join(__dirname, 'views', 'error', '404.html'))
   }
 
@@ -54,7 +58,7 @@ app.use((err, req, res, next) => {
 })
 
 // Start listening.
-app.listen(port, () => {
-  console.log(`Server started on http://localhost:${port}`)
+app.listen(3000, () => {
+  console.log('Server started on http://localhost:3000')
   console.log('Press Ctrl-C to terminate...')
 })
