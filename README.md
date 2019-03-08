@@ -26,4 +26,4 @@ You should set up a web application that follow this rules:
 
 ## Solution
 
-- [https://github.com/1dv023/SOLUTION-follow-the-route](https://github.com/1dv023/SOLUTION-follow-the-route)
+- [https://github.com/1dv023/follow-the-route-SOLUTION](https://github.com/1dv023/follow-the-route-SOLUTION)
