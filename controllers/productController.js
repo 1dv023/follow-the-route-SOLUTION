@@ -44,7 +44,7 @@ productController.createPost = async (req, res) => {
  */
 productController.details = async (req, res, next) => {
   // Get the first product that's id equals the parameter id's value.
-  let product = products.filter(product => product.id === Number(req.params.id)).shift()
+  const product = products.filter(product => product.id === Number(req.params.id)).shift()
 
   // If no product is found send a 404 (resource not found).
   if (!product) {
