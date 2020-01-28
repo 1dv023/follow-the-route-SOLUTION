@@ -10,8 +10,8 @@
     </tr>
   </thead>
   <tbody>
-  {{#if locals.products.length}}
-  {{#each locals.products}}
+  {{#if viewData.products.length}}
+  {{#each viewData.products}}
     <tr>
       <th scope="row">{{this.id}}</th>
       <td><a href="/product/{{this.id}}">{{this.name}}</a></td>

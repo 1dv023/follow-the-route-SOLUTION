@@ -2,7 +2,7 @@
  * The starting point of the application.
  *
  * @author Mats Loock
- * @version 1.1.0
+ * @version 1.0.0
  */
 
 'use strict'
@@ -35,11 +35,6 @@ app.use('*', (req, res, next) => next(createError(404)))
 
 // Error handler.
 app.use((err, req, res, next) => {
-  // 403 Forbidden.
-  if (err.statusCode === 403) {
-    return res.status(403).sendFile(resolve('views', 'error', '403.html'))
-  }
-
   // 404 Not Found.
   if (err.statusCode === 404) {
     return res.status(404).sendFile(resolve('views', 'error', '404.html'))
@@ -59,7 +54,7 @@ app.use((err, req, res, next) => {
 })
 
 // Start listening.
-app.listen(3000, () => {
-  console.log('Server started on http://localhost:3000')
+app.listen(8000, () => {
+  console.log('Server started on http://localhost:8000')
   console.log('Press Ctrl-C to terminate...')
 })
