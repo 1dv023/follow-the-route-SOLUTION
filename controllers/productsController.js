@@ -1,5 +1,5 @@
 /**
- * Module for the product controller.
+ * Module for the products controller.
  *
  * @author Mats Loock
  * @version 1.0.0
@@ -7,7 +7,7 @@
 
 'use strict'
 
-const productController = {}
+const productsController = {}
 
 // "Faking" persistent products.
 const products = [{ id: 1, name: 'Phone' }]
@@ -17,10 +17,12 @@ const products = [{ id: 1, name: 'Phone' }]
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
+ * @param next
  */
-productController.index = async (req, res) => {
+productsController.index = async (req, res, next) => {
   const viewData = { products }
-  res.render('product/index', { viewData })
+  return next(new Error('Hej hopp!'))
+  res.render('products/index', { viewData })
 }
 
 /**
@@ -29,7 +31,9 @@ productController.index = async (req, res) => {
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-productController.create = async (req, res) => res.render('product/create')
+productsController.create = async (req, res) => {
+  res.render('products/create')
+}
 
 /**
  * Creates a new product.
@@ -37,7 +41,7 @@ productController.create = async (req, res) => res.render('product/create')
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-productController.createPost = async (req, res) => {
+productsController.createPost = async (req, res) => {
   // Make the product "persistent" and...
   products.push({
     id: products.length + 1,
@@ -55,7 +59,7 @@ productController.createPost = async (req, res) => {
  * @param {object} res - Express response object.
  * @param {Function} next - Express next middleware function.
  */
-productController.details = async (req, res, next) => {
+productsController.details = async (req, res, next) => {
   // Get the first product that's id equals the parameter id's value.
   const product = products.filter(product => product.id === Number(req.params.id)).shift()
 
@@ -68,8 +72,8 @@ productController.details = async (req, res, next) => {
 
   // Send response with the wanted product.
   const viewData = { product }
-  res.render('product/details', { viewData })
+  res.render('products/details', { viewData })
 }
 
 // Exports.
-module.exports = productController
+module.exports = productsController

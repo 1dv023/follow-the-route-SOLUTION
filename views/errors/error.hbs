@@ -3,11 +3,13 @@
     <div class="col-md-12">
       <div class="error-template">
         <h1>
-          {{error.status}}</h1>
+          {{err.status}}</h1>
         <h2>
-          {{message}}</h2>
+          {{err.message}}</h2>
         <div class="error-details">
-          {{error.stack}}
+          <pre>
+          {{err.stack}}
+          </pre>
         </div>
         <div class="error-actions">
           <a href="/" class="btn btn-primary btn-lg">

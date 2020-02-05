@@ -12,13 +12,13 @@ You should set up a web application that follows these rules:
 
 3. The application should have a main layout defining a template for all dynamic views.
 
-4. When the client asks for the `/product` URL, a view should be rendered that output an HTML document with a simple list of links to the persistent products (the URL is described in point 5).
+4. When the client asks for the `/products` URL, a view should be rendered that output an HTML document with a simple list of links to the persistent products (the URL is described in point 5).
 
-5. When the client asks for the `/product/:id` URL, a view should be rendered that output an HTML document displaying the product. If the client request `/product/231`, the product with id 231 should be displayed.
+5. When the client asks for the `/products/:id` URL, a view should be rendered that output an HTML document displaying the product. If the client request `/products/231`, the product with id 231 should be displayed.
 
-6. When the client asks for the `/product/create` URL a view should be rendered with a simple HTML form should be displayed. The form should have a button that posts the form to the URL described in point 7.
+6. When the client asks for the `/products/create` URL a view should be rendered with a simple HTML form should be displayed. The form should have a button that posts the form to the URL described in point 7.
 
-7. When the client sends an HTTP POST to `/product/create` a function should be called that saves the form data and redirects the client to the URL `/product`.
+7. When the client sends an HTTP POST to `/products/create` a function should be called that saves the form data and redirects the client to the URL `/products`.
 
 8. When the client requests an undefined URL, a 404 page should be rendered.
 
