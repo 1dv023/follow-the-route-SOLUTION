@@ -16,10 +16,10 @@ You should set up a web application that follows these rules:
 
 5. When the client asks for the `/products/:id` URL, a view should be rendered that output an HTML document displaying the product. If the client request `/products/231`, the product with id 231 should be displayed.
 
-6. When the client asks for the `/products/create` URL a view should be rendered with a simple HTML form should be displayed. The form should have a button that posts the form to the URL described in point 7.
+6. When the client asks for the `/products/create` URL, a view should be rendered with a simple HTML form that should be displayed. The form should have a button that posts the form to the URL described in point 7.
 
-7. When the client sends an HTTP POST to `/products/create` a function should be called that saves the form data and redirects the client to the URL `/products`.
+7. When the client sends an HTTP POST to `/products/create`, a function should be called that saves the form data and redirects the client to the URL `/products`.
 
-8. When the client requests an undefined URL, a 404 page should be rendered.
+8. The server must render a custom 404 page when the client requests an undefined URL.
 
-9. The application should be able to handle errors and respond with a 500 status.
+9. The application should be able to handle errors and respond with the status code 500.
