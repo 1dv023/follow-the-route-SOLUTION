@@ -17,11 +17,9 @@ const products = [{ id: 1, name: 'Phone' }]
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
- * @param next
  */
-productsController.index = async (req, res, next) => {
+productsController.index = async (req, res) => {
   const viewData = { products }
-  return next(new Error('Hej hopp!'))
   res.render('products/index', { viewData })
 }
 
