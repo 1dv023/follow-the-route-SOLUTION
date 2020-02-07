@@ -15,12 +15,11 @@ const controller = require('../controllers/productsController')
 router.get('/', controller.index)
 
 // Creates a new product.
-router.route('/create')
-  .get(controller.create)
-  .post(controller.createPost)
+router.get('/new', controller.new)
+router.post('/create', controller.create)
 
 // Gets the details of a product.
-router.get('/:id', controller.details)
+router.get('/:id', controller.show)
 
 // Exports.
 module.exports = router

@@ -13,7 +13,7 @@ const productsController = {}
 const products = [{ id: 1, name: 'Phone' }]
 
 /**
- * Lists all products.
+ * Displays a list of products.
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
@@ -24,13 +24,13 @@ productsController.index = async (req, res) => {
 }
 
 /**
- * Renders a create form.
+ * Returns a HTML form for creating a new product.
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-productsController.create = async (req, res) => {
-  res.render('products/create')
+productsController.new = async (req, res) => {
+  res.render('products/new')
 }
 
 /**
@@ -39,7 +39,7 @@ productsController.create = async (req, res) => {
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-productsController.createPost = async (req, res) => {
+productsController.create = async (req, res) => {
   // Make the product "persistent" and...
   products.push({
     id: products.length + 1,
@@ -51,26 +51,30 @@ productsController.createPost = async (req, res) => {
 }
 
 /**
- * Gets the details of a product.
+ * Displays a product.
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  * @param {Function} next - Express next middleware function.
  */
-productsController.details = async (req, res, next) => {
+productsController.show = async (req, res, next) => {
   // Get the first product that's id equals the parameter id's value.
-  const product = products.filter(product => product.id === Number(req.params.id)).shift()
+  const product = products
+    .filter(product => product.id === Number(req.params.id))
+    .shift()
 
   // If no product is found send a 404 (resource not found).
   if (!product) {
     const error = new Error('Not Found')
     error.statusCode = 404
+    // IMPORTANT! In an async action handler never throw an exception,
+    // always call next!
     return next(error)
   }
 
   // Send response with the wanted product.
   const viewData = { product }
-  res.render('products/details', { viewData })
+  res.render('products/show', { viewData })
 }
 
 // Exports.
