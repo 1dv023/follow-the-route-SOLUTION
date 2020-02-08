@@ -67,7 +67,8 @@ productsController.show = async (req, res, next) => {
   if (!product) {
     const error = new Error('Not Found')
     error.statusCode = 404
-    // IMPORTANT! In an async action handler never throw an exception,
+
+    // IMPORTANT! Never throw an exception in an async action handler,
     // always call next!
     return next(error)
   }
